@@ -1,0 +1,5 @@
+[flake8]
+max-line-length = 119
+exclude = __pycache__,*.pyc,flake8_rapport,venv/
+# Optional: Ignore specific warnings if needed (e.g., F401 for unused imports)
+# ignore = E501,F401
