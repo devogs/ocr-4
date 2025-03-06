@@ -9,7 +9,7 @@ class Player:
         self.lastname = lastname
         self.birthdate = birthdate  # Format: "DD-MM-YYYY"
         self.national_id = national_id  # e.g., "AB12345"
-        self.score = score  # Allow score to be passed or default to 0
+        self.score = score  # Cumulative score across tournaments
 
     def to_dict(self):
         return {
@@ -17,7 +17,7 @@ class Player:
             "lastname": self.lastname,
             "birthdate": self.birthdate,
             "national_id": self.national_id,
-            "score": self.score
+            "score": self.score  # Include score for global tracking in players.json
         }
 
 class Match:
@@ -66,7 +66,6 @@ class Match:
                     # Fallback: create a new Player if not found (shouldn't happen)
                     match.players.append([Player(**{**player_data, "national_id": national_id}), score])
             else:
-                # Handle unexpected cases (e.g., strings or other types)
                 raise ValueError("Invalid player data in Match")
         return match
 
@@ -125,8 +124,8 @@ class Tournament:
         }
 
     def add_players_from_database(self, available_players):
-        # Add all players from the database to the tournament
-        self.players = available_players.copy()
+        # Add all players from the database to the tournament, copying scores
+        self.players = [Player(**player.to_dict()) for player in available_players]
         # Generate all possible unique pairings (ensuring every player faces each other)
         self.all_possible_pairs = []
         if len(self.players) >= 2:  # Ensure at least 2 players for pairing

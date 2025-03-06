@@ -40,10 +40,10 @@ class View:
         return firstname, lastname, birthdate, national_id
 
     def display_players(self, players):
-        print("\nPlayers (alphabetical by lastname, firstname):")
+        print("\nPlayers (alphabetical by lastname, firstname) with Lifetime Scores:")
         sorted_players = sorted(players, key=lambda p: (p.lastname, p.firstname))
         for i, player in enumerate(sorted_players, 1):
-            print(f"{i}. {player.lastname}, {player.firstname} (ID: {player.national_id}, Birthdate: {player.birthdate})")
+            print(f"{i}. {player.lastname}, {player.firstname} (ID: {player.national_id}, Birthdate: {player.birthdate}, Lifetime Score: {player.score})")
 
     def display_tournaments(self, tournaments):
         if not tournaments or tournaments is None:
@@ -73,7 +73,7 @@ class View:
         print(f"Description: {tournament.description}")
         print(f"Number of Rounds: {tournament.number_of_rounds}")
         print(f"Current Round: {tournament.current_round}")
-        self.display_players(tournament.players)  # List players (alphabetical by lastname, firstname)
+        self.display_players(tournament.players)  # List players (alphabetical by lastname, firstname) with tournament scores
         print("\nRounds and Matches:")
         for round in tournament.rounds:
             print(f"{round.name} ({round.start_time} - {round.end_time or 'Ongoing'})")
