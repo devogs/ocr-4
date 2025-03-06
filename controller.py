@@ -23,6 +23,16 @@ class Controller:
         self.db.save_players(self.players)
         self.view.display_message("Player added successfully!")
 
+    def update_global_scores(self):
+        """Update global player scores based on the current tournament's scores."""
+        if self.tournament:
+            for tour_player in self.tournament.players:
+                # Find the corresponding player in self.players by national_id
+                global_player = next((p for p in self.players if p.national_id == tour_player.national_id), None)
+                if global_player:
+                    global_player.score += tour_player.score  # Increment global score
+            self.db.save_players(self.players)  # Save updated global scores to players.json
+
     def manage_rounds(self):
         if not self.tournament:
             self.view.display_message("Please create a tournament first!")
@@ -51,10 +61,11 @@ class Controller:
                             self.view.display_message(f"Match: {match.players[0][0].lastname}, {match.players[0][0].firstname} vs {match.players[1][0].lastname}, {match.players[1][0].firstname}")
                             winner_idx = self.view.get_match_result(match.players[0][0], match.players[1][0])
                             match.set_result(winner_idx)
-                            # Update scores after setting result
+                            # Update tournament scores after setting result
                             for player, score in match.players:
                                 player.score += score
                     self.db.save_tournament(self.tournament)
+                    self.update_global_scores()  # Update and save global scores after each round
                     self.view.display_message(f"Round {self.tournament.current_round} finished!")
                 else:
                     self.view.display_message("No round to finish!")
@@ -62,11 +73,12 @@ class Controller:
                 if self.view.confirm_end_tournament():
                     if self.tournament.end_tournament():
                         self.db.save_tournament(self.tournament)
+                        self.update_global_scores()  # Update and save global scores when ending tournament
                         self.view.display_message(f"Tournament '{self.tournament.name}' ended on {self.tournament.end_date}!")
                     else:
                         self.view.display_message("Cannot end tournament: it must have completed all rounds or already ended.")
             elif choice == "4":
-                break
+                break  # Return to main menu
             else:
                 self.view.display_message("Invalid option, try again.")
 
@@ -111,7 +123,7 @@ class Controller:
             choice = self.view.display_reports_menu()
 
             if choice == "1":
-                self.view.display_players(self.players)  # List all players (alphabetical by lastname, firstname)
+                self.view.display_players(self.players)  # List all players (alphabetical by lastname, firstname) with global scores
             elif choice == "2":
                 # Load all tournaments from data/tournaments directory
                 tournaments = []
