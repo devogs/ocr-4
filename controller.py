@@ -11,7 +11,7 @@ Directory Structure:
 
 Usage:
     Run the script to start the interactive menu:
-        $ python3 -m controller
+        $ python3 main.py
 
 Classes:
     Controller: Manages the application logic and user interface interactions.
