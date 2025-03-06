@@ -51,13 +51,23 @@ ChessTournament/
    cd ocr-4
    ```
 
-2. **Install Dependencies**:
+2. **Create virtual environment**
+   A virtual environment helps isolate dependencies for your project.
+
+   ```bash
+   python3 -m venv venv
+   ```
+
+   - `python3` ensures you're using Python 3, you can visit the official web page: https://www.python.org/downloads/release/python-3810/
+   - `venv` is the name of the virtual environment. You can choose any name.
+
+3. **Install Dependencies**:
    Install using:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Verify Installation**:
+4. **Verify Installation**:
    Check `flake8` and `flake8-html` versions:
    ```bash
    flake8 --version
