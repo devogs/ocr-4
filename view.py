@@ -11,7 +11,7 @@ Directory Structure:
 
 Usage:
     Import and use with the Controller class:
-        $ python3 -m controller
+        $ python3 main.py
 
 Classes:
     View: Handles all user interface and input/output operations.
