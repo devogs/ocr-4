@@ -61,6 +61,10 @@ ChessTournament/
    - `python3` ensures you're using Python 3, you can visit the official web page: https://www.python.org/downloads/release/python-3810/
    - `venv` is the name of the virtual environment. You can choose any name.
 
+   ```bash
+   source venv/bin/activate
+   ```
+
 3. **Install Dependencies**:
    Install using:
    ```bash
