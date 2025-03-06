@@ -11,7 +11,7 @@ Directory Structure:
 
 Usage:
     Import and use the classes to manage tournament data:
-        $ python3 -m controller
+        $ python3 main.py
 
 Classes:
     Player: Represents a chess player with personal details and score.
