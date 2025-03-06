@@ -1,3 +1,2 @@
-art
 flake8
 flake8-html
